@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.js"></script>
+  </head>
+  <body>
+    <textarea id="output" style="width: 100%; height: 100%;">
+    </textarea>
+  </body>
+  <script>
+    var counter = 0;
+    var poll = function() {
+      $.getJSON('/poll/' + counter, function(response) {
+        counter = response.count;
+        var elem = $('#output');
+        console.log(response.append);
+        elem.text(elem.text() + response.append);
+        poll();
+      }).fail(function(error) {
+        poll();
+      });
+    };
+    poll();
+  </script>
+</html>
